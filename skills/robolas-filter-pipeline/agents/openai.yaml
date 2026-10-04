@@ -1,0 +1,4 @@
+interface:
+  display_name: "RoboLas Filter Pipeline"
+  short_description: "Change RoboLas terrain filtering safely"
+  default_prompt: "Use $robolas-filter-pipeline to modify this RoboLas filtering change without breaking pipeline contracts."

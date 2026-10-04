@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34408.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LAS_TERRAIN", "LAS_TERRAIN.csproj", "{B3B2AFC5-2A75-40C3-8A46-C07A290C2E43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LAS_TERRAIN.MCP", "Mcp\LasTerrain.Mcp.csproj", "{7E6C1B2A-3D4E-4F5A-9B8C-1D2E3F4A5B6C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E6C1B2A-3D4E-4F5A-9B8C-1D2E3F4A5B6C}.Debug|Any CPU.ActiveCfg = Debug|AnyCPU
+		{7E6C1B2A-3D4E-4F5A-9B8C-1D2E3F4A5B6C}.Debug|Any CPU.Build.0 = Debug|AnyCPU
+		{7E6C1B2A-3D4E-4F5A-9B8C-1D2E3F4A5B6C}.Release|Any CPU.ActiveCfg = Release|AnyCPU
+		{7E6C1B2A-3D4E-4F5A-9B8C-1D2E3F4A5B6C}.Release|Any CPU.Build.0 = Release|AnyCPU
+		{B3B2AFC5-2A75-40C3-8A46-C07A290C2E43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3B2AFC5-2A75-40C3-8A46-C07A290C2E43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3B2AFC5-2A75-40C3-8A46-C07A290C2E43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3B2AFC5-2A75-40C3-8A46-C07A290C2E43}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E51F0D4-440B-4BDD-A4D3-1AAB9C8A519E}
+	EndGlobalSection
+EndGlobal

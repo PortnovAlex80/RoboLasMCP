@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup><BaseIntermediateOutputPath>obj-net35\</BaseIntermediateOutputPath></PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DD0ABCE6-78D0-4E65-8D64-8A5B48D9F6AC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>RoboLasInstaller</RootNamespace>
+    <AssemblyName>RoboLasInstaller</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <ApplicationIcon>AppIcon.ico</ApplicationIcon>
+    <LangVersion>latest</LangVersion>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols><DebugType>full</DebugType><Optimize>false</Optimize><OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType><Optimize>true</Optimize><OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" /><Reference Include="System.Core" /><Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <EmbeddedResource Include="..\RobolasIcons\RoboLasLogoVer2.png"><LogicalName>RoboLasInstaller.Resources.RoboLasLogoVer2.png</LogicalName></EmbeddedResource>
+    <Compile Include="Program.cs" /><Compile Include="MainForm.cs" />
+    <Compile Include="PackageArchive.cs" /><Compile Include="PackageInstallPlan.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

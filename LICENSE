@@ -1,0 +1,33 @@
+RoboLas / RoboLasMCP — условия использования
+Copyright (c) 2026 AlexPo
+
+РУССКИЙ (основной текст)
+
+1. Разрешается свободно использовать, копировать, изменять, распространять
+   данное программное обеспечение и его исходный код в личных,
+   учебных и некоммерческих целях.
+
+2. При использовании данного программного обеспечения (в исходном или
+   модифицированном виде) в КОММЕРЧЕСКИХ проектах обязательно указание
+   авторства: «Применяется RoboLas — AlexPo» — в документации, описании
+   продукта, файлах справки или на экране «О программе».
+
+3. Данное программное обеспечение предоставляется «КАК ЕСТЬ» (as is), без
+   каких-либо гарантий, явных или подразумеваемых. Автор не несёт
+   ответственности за любые последствия использования и НЕ ПРИНИМАЕТ
+   ПРЕТЕНЗИЙ по поводу работы системы, ошибок или ущерба. Перед применением
+   в реальных проектах проверяйте результаты расчётов.
+
+ENGLISH (translation)
+
+1. You are free to use, copy, modify and distribute this software and its
+   source code for personal, educational and non-commercial purposes.
+
+2. When using this software (original or modified) in COMMERCIAL projects,
+   you must give credit: "Powered by RoboLas — AlexPo" — in the product
+   documentation, description, help files or an About screen.
+
+3. THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DAMAGES ARISING
+   FROM THE USE OF THIS SOFTWARE. NO CLAIMS AGAINST THE DEVELOPER WILL BE
+   ACCEPTED. Verify calculation results before using them in real projects.

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+<title>plan_draw_polygon</title>
+<polygon points="4,9 15,4 25,11 21,26 6,24" fill="#e5f3fb" stroke="#1684c7" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="18,24 25,17 29,21 22,28 17,29" fill="#ffe2a6" stroke="#c17a12" stroke-width="1.5" stroke-linejoin="round"/>
+<polyline points="25,17 29,21" fill="none" stroke="#334155" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="4" cy="9" r="1.8" fill="#1684c7"/>
+<circle cx="15" cy="4" r="1.8" fill="#1684c7"/>
+<circle cx="6" cy="24" r="1.8" fill="#1684c7"/>
+</svg>

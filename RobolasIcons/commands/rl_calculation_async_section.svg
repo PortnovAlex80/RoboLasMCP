@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+<title>calculation_async_section</title>
+<polygon points="3,25 8,12 15,6 24,13 29,25" fill="#e5f3fb" stroke="#1684c7" stroke-width="1.8" stroke-linejoin="round"/>
+<polyline points="3,25 16,18 29,25 24,13 16,18 15,6 8,12 16,18" fill="none" stroke="#1684c7" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="8,12 3,25" fill="none" stroke="#1684c7" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="7" cy="22" r="2" fill="#1684c7"/>
+<circle cx="16" cy="18" r="2" fill="#1684c7"/>
+<circle cx="24" cy="22" r="2" fill="#1684c7"/>
+</svg>

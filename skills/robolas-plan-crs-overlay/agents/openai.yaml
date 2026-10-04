@@ -1,0 +1,4 @@
+interface:
+  display_name: "RoboLas Plan CRS Overlay"
+  short_description: "Build Plan and CRS overlay tools"
+  default_prompt: "Use $robolas-plan-crs-overlay to implement this RoboLas Plan or CRS polygon and overlay feature."

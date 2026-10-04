@@ -1,0 +1,4 @@
+interface:
+  display_name: "RoboLas Command Usecase"
+  short_description: "Add RoboLas commands and use cases safely"
+  default_prompt: "Use $robolas-command-usecase to add or update this RoboLas command and keep all bindings in sync."

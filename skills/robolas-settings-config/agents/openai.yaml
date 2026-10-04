@@ -1,0 +1,4 @@
+interface:
+  display_name: "RoboLas Settings Config"
+  short_description: "Wire new RoboLas settings end to end"
+  default_prompt: "Use $robolas-settings-config to add this RoboLas setting through storage, runtime config, UI, and consumers."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "RoboLas Feature Router"
+  short_description: "Route RoboLas features to the right path"
+  default_prompt: "Use $robolas-feature-router to classify this RoboLas request and choose the correct implementation skill."

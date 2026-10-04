@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+<title>crs_delete_points</title>
+<polygon points="3,21 9,11 16,17 24,8 26,24" fill="#e5f3fb" stroke="#1684c7" stroke-width="1.8" stroke-linejoin="round"/>
+<circle cx="10" cy="13" r="1.7" fill="#1684c7"/>
+<circle cx="14" cy="20" r="1.7" fill="#1684c7"/>
+<circle cx="20" cy="13" r="1.7" fill="#1684c7"/>
+<circle cx="24" cy="24" r="6" fill="#ffffff"/>
+<polyline points="20,20 28,28" fill="none" stroke="#cf3e46" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="28,20 20,28" fill="none" stroke="#cf3e46" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,11 @@
+{
+  "assemblies": {
+    "las_terrain_mcp.controller": {
+      "assembly": "LAS_TERRAIN.MCP.dll, LAS_TERRAIN.Mcp.LasMcpPluginHost"
+    }
+  },
+  "broadcasts": {
+    "tool_request": "las_generate_tools",
+    "projectopened": "las_mcp_autostart"
+  }
+}

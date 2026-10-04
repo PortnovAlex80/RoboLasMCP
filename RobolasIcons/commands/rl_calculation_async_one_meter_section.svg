@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+<title>calculation_async_one_meter_section</title>
+<polygon points="3,25 8,12 15,6 24,13 29,25" fill="#e5f3fb" stroke="#1684c7" stroke-width="1.8" stroke-linejoin="round"/>
+<polyline points="3,25 16,18 29,25 24,13 16,18 15,6 8,12 16,18" fill="none" stroke="#1684c7" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="8,12 3,25" fill="none" stroke="#1684c7" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="7,28 25,28" fill="none" stroke="#22845c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="7,26 7,30" fill="none" stroke="#22845c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="13,26 13,30" fill="none" stroke="#22845c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="19,26 19,30" fill="none" stroke="#22845c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="25,26 25,30" fill="none" stroke="#22845c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

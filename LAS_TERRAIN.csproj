@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B3B2AFC5-2A75-40C3-8A46-C07A290C2E43}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LAS_TERRAIN</RootNamespace>
+    <AssemblyName>LAS_TERRAIN</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <!-- Topomatic Installation Path Configuration -->
+  <PropertyGroup>
+    <!-- Set TOPOMATIC_PATH environment variable to override, e.g.:
+         Windows: set TOPOMATIC_PATH=C:\Program Files\Topomatic Robur Rail 17.0
+         Or use: msbuild /p:TopomaticPath="C:\Program Files\Topomatic Robur Rail 17.0"
+    -->
+    <TopomaticPath Condition=" '$(TopomaticPath)' == '' ">$(TOPOMATIC_PATH)</TopomaticPath>
+    <!-- Auto-detect common installations if not set -->
+    <TopomaticPath Condition=" '$(TopomaticPath)' == '' and Exists('C:\Program Files\Topomatic Robur Rail 17.0') ">C:\Program Files\Topomatic Robur Rail 17.0</TopomaticPath>
+    <TopomaticPath Condition=" '$(TopomaticPath)' == '' and Exists('C:\Program Files\Topomatic Robur Road 17.0') ">C:\Program Files\Topomatic Robur Road 17.0</TopomaticPath>
+    <TopomaticPath Condition=" '$(TopomaticPath)' == '' and Exists('C:\Program Files\Topomatic Robur Rail 16.0') ">C:\Program Files\Topomatic Robur Rail 16.0</TopomaticPath>
+    <TopomaticPath Condition=" '$(TopomaticPath)' == '' and Exists('C:\Program Files\Topomatic Robur Road 16.0') ">C:\Program Files\Topomatic Robur Road 16.0</TopomaticPath>
+    <TopomaticPath Condition=" '$(TopomaticPath)' == '' and Exists('C:\Program Files\Topomatic Robur Rail 15.0') ">C:\Program Files\Topomatic Robur Rail 15.0</TopomaticPath>
+    <TopomaticPath Condition=" '$(TopomaticPath)' == '' and Exists('C:\Program Files\Topomatic Robur Road 15.0') ">C:\Program Files\Topomatic Robur Road 15.0</TopomaticPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Diagnostic)' == 'true'">
+    <DefineConstants>$(DefineConstants);DIAGNOSTIC</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" Condition="'$(Diagnostic)' == 'true'" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Topomatic.Alg, Version=0.0.0.0, Culture=neutral, PublicKeyToken=e252492115b01327, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(TopomaticPath)\Topomatic.Alg.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.Alg.Layers">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(TopomaticPath)\Topomatic.Alg.Layers.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.Alg.Model">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>$(TopomaticPath)\Topomatic.Alg.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Topomatic.Alg.Runtime">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(TopomaticPath)\Topomatic.Alg.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.ApplicationPlatform">
+      <HintPath>$(TopomaticPath)\Topomatic.ApplicationPlatform.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.Cad.Foundation">
+      <HintPath>$(TopomaticPath)\Topomatic.Cad.Foundation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.Cad.View">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(TopomaticPath)\Topomatic.Cad.View.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.Controls">
+      <HintPath>$(TopomaticPath)\Topomatic.Controls.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.Crs">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>$(TopomaticPath)\Topomatic.Crs.dll</HintPath>
+    </Reference>
+    <Reference Include="Topomatic.Dwg">
+      <HintPath>$(TopomaticPath)\Topomatic.Dwg.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.Dwg.Layer">
+      <HintPath>$(TopomaticPath)\Topomatic.Dwg.Layer.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.FoundationClasses">
+      <HintPath>$(TopomaticPath)\Topomatic.FoundationClasses.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.Lidar">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(TopomaticPath)\Topomatic.Lidar.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.Sfc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(TopomaticPath)\Topomatic.Sfc.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.Sfc.Layer">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(TopomaticPath)\Topomatic.Sfc.Layer.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.Stg">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(TopomaticPath)\Topomatic.Stg.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Domain\Filters\BreakDetector.cs" />
+    <Compile Include="Domain\Persistence\PolygonScope.cs" />
+    <Compile Include="Domain\Persistence\ScopedPolygonRecord.cs" />
+    <Compile Include="Domain\Persistence\ScopedPolygonRepository.cs" />
+    <Compile Include="Domain\Persistence\PortablePolygonFile.cs" />
+    <Compile Include="Application\OperationResult.cs" />
+    <Compile Include="Application\ExportRequest.cs" />
+    <Compile Include="Application\TopomaticSurfaceWriter.cs" />
+    <Compile Include="Application\SectionRequest.cs" />
+    <Compile Include="Application\SectionWorkflow.cs" />
+    <Compile Include="Infrastructure\PolygonContextResolver.cs" />
+    <Compile Include="Infrastructure\PlanSurfaceTarget.cs" />
+    <Compile Include="Infrastructure\BorrowedLidarSourceSnapshot.cs" />
+    <Compile Include="Infrastructure\LidarCacheHeader.cs" />
+    <Compile Include="Infrastructure\RgbExternalSort.cs" />
+    <Compile Include="Infrastructure\RgbExportSession.cs" />
+    <Compile Include="Infrastructure\ColoredPointSpool.cs" />
+    <Compile Include="Infrastructure\ColorAwareLasWriter.cs" />
+    <Compile Include="Services\RgbExportPipeline.cs" />
+    <Compile Include="Domain\Service\LasSectionPointsCollectorService.Rgb.cs" />
+    <Compile Include="Infrastructure\ScopedPolygonOperationContext.cs" />
+    <Compile Include="Domain\Filters\FilterAggregator.cs" />
+    <Compile Include="Domain\Filters\SegmentBoundary.cs" />
+    <Compile Include="Domain\Filters\GraphGroundDebugInfo.cs" />
+    <Compile Include="Domain\Filters\GraphGround3DFilter.cs" />
+    <Compile Include="Domain\Filters\GraphGroundFilter.cs" />
+    <Compile Include="Domain\Filters\MinWeightedGroundLevelMedianFilter.cs" />
+    <Compile Include="Domain\Filters\RobustGroundSplineFilter.cs" />
+    <Compile Include="Domain\Filters\OrderByX.cs" />
+    <Compile Include="Domain\Filters\SplitAndMergeAlgorithm.cs" />
+    <Compile Include="CommandRegistry\ISectionUseCase.cs" />
+    <Compile Include="Domain\Service\PolynomialSurfaceFitter.cs" />
+    <Compile Include="Domain\Service\FastSurfaceBuilder.cs" />
+    <Compile Include="Domain\Service\CrsSectionAssociation.cs" />
+    <Compile Include="Domain\Service\CrsScopedSectionAssociation.cs" />
+    <Compile Include="Domain\Service\CrsDrawLineContext.cs" />
+    <Compile Include="Domain\Service\ScanlineFillPlanner.cs" />
+    <Compile Include="Domain\Service\GridCellIndex.cs" />
+    <Compile Include="Domain\Service\GridFeatureDetector.cs" />
+    <Compile Include="Domain\Service\GridMinZAccumulator.cs" />
+    <Compile Include="Domain\Service\PolygonGeometry.cs" />
+    <Compile Include="Domain\Service\PolygonBounds.cs" />
+    <Compile Include="Testing\Remoting\LasTerrainTestService.cs" Condition="'$(Diagnostic)' == 'true'" />
+    <Compile Include="Testing\Remoting\DiagnosticUiDispatcher.cs" Condition="'$(Diagnostic)' == 'true'" />
+    <Compile Include="Testing\Remoting\IpcTestServer.cs" Condition="'$(Diagnostic)' == 'true'" />
+    <Compile Include="Infrastructure\MemoryStatus.cs" />
+    <Compile Include="Infrastructure\SpilledPointList.cs" />
+    <Compile Include="Infrastructure\LidarIntensity.cs" />
+    <Compile Include="Infrastructure\NativeLidarPointAdapter.cs" />
+    <Compile Include="Infrastructure\RuntimeConfig.cs" />
+    <Compile Include="Infrastructure\FilterSettingsSnapshotAdapter.cs" />
+    <Compile Include="Infrastructure\UserControl\LasSettingsPanel.cs" />
+    <Compile Include="Infrastructure\UserDialogs.cs" />
+    <Compile Include="Domain\Models\CrsPolygonEntry.cs" />
+    <Compile Include="Domain\Models\PlanPolygonEntry.cs" />
+    <Compile Include="Domain\Models\LasFilterOptions.cs" />
+    <Compile Include="Domain\Models\FilterOperationSnapshot.cs" />
+    <Compile Include="Domain\Models\GraphGround3DOptions.cs" />
+    <Compile Include="Domain\Models\PlanSurfaceSettings.cs" />
+    <Compile Include="Domain\Models\LasSectionPoints.cs" />
+    <Compile Include="Domain\Models\PointKey3D.cs" />
+    <Compile Include="Domain\Models\PointKey2D.cs" />
+    <Compile Include="Infrastructure\ParallelWorkRunner.cs" />
+    <Compile Include="Infrastructure\PluginOperationGate.cs" />
+    <Compile Include="Infrastructure\CalculationTelemetry.cs" />
+    <Compile Include="Infrastructure\LasExportSourceContext.cs" />
+    <Compile Include="Infrastructure\GraphGround3DSettingsAdapter.cs" />
+    <Compile Include="Infrastructure\TopomaticIndexScheduler.cs" />
+    <Compile Include="Services\Layers\PlanOverlayLayer.cs" />
+    <Compile Include="Services\Layers\EmptySelectionSet.cs" />
+    <Compile Include="Services\RawPointsCollector.cs" />
+    <Compile Include="Services\SamplingHelper.cs" />
+    <Compile Include="Services\SectionStationPlanner.cs" />
+    <Compile Include="Services\SaveLidarPointsService.cs" />
+    <Compile Include="UseCases\CrsClearPolygonsUseCase.cs" />
+    <Compile Include="UseCases\CrsDeletePointsUseCase.cs" />
+    <Compile Include="UseCases\CrsDrawLineUseCase.cs" />
+    <Compile Include="UseCases\PolygonFileUseCase.cs" />
+    <Compile Include="UseCases\PlanClearPolygonsUseCase.cs" />
+    <Compile Include="UseCases\PlanDeletePointsUseCase.cs" />
+    <Compile Include="UseCases\PlanDrawPolygonUseCase.cs" />
+    <Compile Include="UseCases\PlanPolygonPolynomialSurfaceUseCase.cs" />
+    <Compile Include="UseCases\PlanPolygonGridSurfaceUseCase.cs" />
+    <Compile Include="UseCases\PlanPolygonScanState.cs" />
+    <Compile Include="UseCases\ReduceWithGroundRedSectorUseCase.cs" />
+    <Compile Include="UseCases\SectionExecutionContext.cs" />
+    <Compile Include="Module.cs" />
+    <Compile Include="LasTerrainPluginHost.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CommandRegistry\SectionCmdAttribute .cs" />
+    <Compile Include="CommandRegistry\SectionCommandRunner.cs" />
+    <Compile Include="CommandRegistry\SectionEnv.cs" />
+    <Compile Include="CommandRegistry\SectionRegistry.cs" />
+    <Compile Include="Services\GroundPointsCollector.cs" />
+    <Compile Include="Services\GroundPointsCollector.OnePass.cs" />
+    <Compile Include="Domain\Service\LasFilterService.cs" />
+    <Compile Include="Domain\Service\LasSectionPointsCollectorService.cs" />
+    <Compile Include="Infrastructure\LasBatchStreamWriter.cs" />
+    <Compile Include="Infrastructure\LasColoredPoint.cs" />
+    <Compile Include="Infrastructure\LasRgbSourceReader.cs" />
+    <Compile Include="Infrastructure\LasStreamWriter .cs" />
+    <Compile Include="Infrastructure\PreparedLasFile.cs" />
+    <Compile Include="Infrastructure\LasPairPublication.cs" />
+    <Compile Include="Services\LidarBufferService.cs" />
+    <Compile Include="Services\SectionBaseUseCase.cs" />
+    <Compile Include="LaunchSettings\Settings.cs" />
+    <Compile Include="UseCases\CalculateCustomStepSectionAsyncUseCase.cs" />
+    <Compile Include="UseCases\CalculateOneMeterSectionAsyncUseCase.cs" />
+    <Compile Include="UseCases\CalculateSectionAsyncUseCase.cs" />
+    <Compile Include="UseCases\ReduceLasAsyncToPercentUseCase.cs" />
+    <Compile Include="UseCases\SetSplitMergeToleranceUseCase.cs" />
+    <Compile Include="UseCases\SplitLasByOffsetUseCase.cs" />
+    <Compile Include="Infrastructure\Extensions\ZipExtension.cs" />
+    <Compile Include="Automation\LasAutomationException.cs" />
+    <Compile Include="Automation\PluginSettings.cs" />
+    <Compile Include="Automation\LasAutomationDtos.cs" />
+    <Compile Include="Automation\LasAutomation.cs" />
+    <Compile Include="Automation\LasAutomation.Terrain.cs" />
+    <Compile Include="Automation\LasAutomation.Export.cs" />
+    <Compile Include="Automation\LasAutomation.SectionProbe.cs" />
+    <Compile Include="Automation\LasAutomationSectionVisualDtos.cs" />
+    <Compile Include="Automation\LasAutomation.SectionFrame.cs" />
+    <Compile Include="Domain\Service\SectionDensity.cs" />
+    <Compile Include="Automation\LasAutomation.Polygons.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LAS_TERRAIN.plugin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="FAQ_topomatic.txt" />
+    <Content Include="RobolasIcons\commands\rl_las_start_mcp.svg" />
+    <Content Include="RobolasIcons\commands\rl_las_start_mcp_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_las_start_mcp_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_las_start_mcp_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_las_start_mcp_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_las_start_mcp_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_las_start_mcp_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_las_start_mcp_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_las_start_mcp_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_las_start_mcp_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_las_start_mcp_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_custom_step.svg" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_custom_step_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_custom_step_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_custom_step_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_custom_step_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_custom_step_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_custom_step_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_custom_step_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_custom_step_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_custom_step_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_custom_step_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_one_meter_section.svg" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_one_meter_section_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_one_meter_section_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_one_meter_section_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_one_meter_section_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_one_meter_section_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_one_meter_section_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_one_meter_section_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_one_meter_section_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_one_meter_section_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_one_meter_section_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_section.svg" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_section_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_section_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_section_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_section_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_section_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_section_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_section_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_section_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_section_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_calculation_async_section_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_create_las_settings_panel.svg" />
+    <Content Include="RobolasIcons\commands\rl_create_las_settings_panel_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_create_las_settings_panel_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_create_las_settings_panel_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_create_las_settings_panel_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_create_las_settings_panel_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_create_las_settings_panel_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_create_las_settings_panel_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_create_las_settings_panel_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_create_las_settings_panel_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_create_las_settings_panel_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_clear_polygons.svg" />
+    <Content Include="RobolasIcons\commands\rl_crs_clear_polygons_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_clear_polygons_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_clear_polygons_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_clear_polygons_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_clear_polygons_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_clear_polygons_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_clear_polygons_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_clear_polygons_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_clear_polygons_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_clear_polygons_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_delete_points.svg" />
+    <Content Include="RobolasIcons\commands\rl_crs_delete_points_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_delete_points_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_delete_points_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_delete_points_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_delete_points_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_delete_points_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_delete_points_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_delete_points_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_delete_points_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_delete_points_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_draw_line.svg" />
+    <Content Include="RobolasIcons\commands\rl_crs_draw_line_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_draw_line_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_draw_line_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_draw_line_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_draw_line_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_draw_line_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_draw_line_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_draw_line_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_draw_line_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_crs_draw_line_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_clear_polygons.svg" />
+    <Content Include="RobolasIcons\commands\rl_plan_clear_polygons_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_clear_polygons_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_clear_polygons_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_clear_polygons_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_clear_polygons_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_clear_polygons_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_clear_polygons_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_clear_polygons_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_clear_polygons_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_clear_polygons_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_delete_points.svg" />
+    <Content Include="RobolasIcons\commands\rl_plan_delete_points_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_delete_points_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_delete_points_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_delete_points_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_delete_points_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_delete_points_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_delete_points_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_delete_points_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_delete_points_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_delete_points_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_draw_polygon.svg" />
+    <Content Include="RobolasIcons\commands\rl_plan_draw_polygon_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_draw_polygon_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_draw_polygon_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_draw_polygon_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_draw_polygon_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_draw_polygon_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_draw_polygon_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_draw_polygon_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_draw_polygon_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_draw_polygon_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_grid_surface.svg" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_grid_surface_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_grid_surface_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_grid_surface_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_grid_surface_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_grid_surface_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_grid_surface_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_grid_surface_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_grid_surface_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_grid_surface_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_grid_surface_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_polynomial_surface.svg" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_polynomial_surface_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_polynomial_surface_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_polynomial_surface_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_polynomial_surface_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_polynomial_surface_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_polynomial_surface_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_polynomial_surface_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_polynomial_surface_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_polynomial_surface_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_plan_polygon_polynomial_surface_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_load.svg" />
+    <Content Include="RobolasIcons\commands\rl_polygon_load_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_load_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_load_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_load_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_load_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_load_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_load_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_load_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_load_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_load_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_save_as.svg" />
+    <Content Include="RobolasIcons\commands\rl_polygon_save_as_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_save_as_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_save_as_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_save_as_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_save_as_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_save_as_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_save_as_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_save_as_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_save_as_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_polygon_save_as_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_las_async_to_percent.svg" />
+    <Content Include="RobolasIcons\commands\rl_reduce_las_async_to_percent_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_las_async_to_percent_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_las_async_to_percent_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_las_async_to_percent_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_las_async_to_percent_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_las_async_to_percent_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_las_async_to_percent_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_las_async_to_percent_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_las_async_to_percent_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_las_async_to_percent_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_with_ground_red_sector.svg" />
+    <Content Include="RobolasIcons\commands\rl_reduce_with_ground_red_sector_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_with_ground_red_sector_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_with_ground_red_sector_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_with_ground_red_sector_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_with_ground_red_sector_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_with_ground_red_sector_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_with_ground_red_sector_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_with_ground_red_sector_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_with_ground_red_sector_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_reduce_with_ground_red_sector_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_set_split_merge_tolerance.svg" />
+    <Content Include="RobolasIcons\commands\rl_set_split_merge_tolerance_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_set_split_merge_tolerance_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_set_split_merge_tolerance_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_set_split_merge_tolerance_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_set_split_merge_tolerance_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_set_split_merge_tolerance_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_set_split_merge_tolerance_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_set_split_merge_tolerance_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_set_split_merge_tolerance_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_set_split_merge_tolerance_32dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_split_las_by_offset.svg" />
+    <Content Include="RobolasIcons\commands\rl_split_las_by_offset_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_split_las_by_offset_16dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_split_las_by_offset_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_split_las_by_offset_16dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_split_las_by_offset_16dp_3x.png" />
+    <Content Include="RobolasIcons\commands\rl_split_las_by_offset_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_split_las_by_offset_32dp_1x.png" />
+    <Content Include="RobolasIcons\commands\rl_split_las_by_offset_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\commands\rl_split_las_by_offset_32dp_2x.png" />
+    <Content Include="RobolasIcons\commands\rl_split_las_by_offset_32dp_3x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_clip_robolas_pack\ic_lidar_surface_clip_robolas_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_clip_robolas_pack\ic_lidar_surface_clip_robolas_16dp_1x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_clip_robolas_pack\ic_lidar_surface_clip_robolas_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_clip_robolas_pack\ic_lidar_surface_clip_robolas_16dp_2x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_clip_robolas_pack\ic_lidar_surface_clip_robolas_16dp_3x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_clip_robolas_pack\ic_lidar_surface_clip_robolas_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_clip_robolas_pack\ic_lidar_surface_clip_robolas_32dp_1x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_clip_robolas_pack\ic_lidar_surface_clip_robolas_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_clip_robolas_pack\ic_lidar_surface_clip_robolas_32dp_2x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_clip_robolas_pack\ic_lidar_surface_clip_robolas_32dp_3x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_reduce_robolas_pack\ic_lidar_surface_reduce_robolas_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_reduce_robolas_pack\ic_lidar_surface_reduce_robolas_16dp_1x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_reduce_robolas_pack\ic_lidar_surface_reduce_robolas_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_reduce_robolas_pack\ic_lidar_surface_reduce_robolas_16dp_2x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_reduce_robolas_pack\ic_lidar_surface_reduce_robolas_16dp_3x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_reduce_robolas_pack\ic_lidar_surface_reduce_robolas_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_reduce_robolas_pack\ic_lidar_surface_reduce_robolas_32dp_1x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_reduce_robolas_pack\ic_lidar_surface_reduce_robolas_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_reduce_robolas_pack\ic_lidar_surface_reduce_robolas_32dp_2x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_reduce_robolas_pack\ic_lidar_surface_reduce_robolas_32dp_3x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_split_robolas_pack\ic_lidar_surface_split_robolas_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_split_robolas_pack\ic_lidar_surface_split_robolas_16dp_1x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_split_robolas_pack\ic_lidar_surface_split_robolas_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_split_robolas_pack\ic_lidar_surface_split_robolas_16dp_2x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_split_robolas_pack\ic_lidar_surface_split_robolas_16dp_3x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_split_robolas_pack\ic_lidar_surface_split_robolas_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_split_robolas_pack\ic_lidar_surface_split_robolas_32dp_1x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_split_robolas_pack\ic_lidar_surface_split_robolas_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_split_robolas_pack\ic_lidar_surface_split_robolas_32dp_2x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_split_robolas_pack\ic_lidar_surface_split_robolas_32dp_3x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_test_robolas_pack\ic_lidar_surface_test_robolas_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_test_robolas_pack\ic_lidar_surface_test_robolas_16dp_1x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_test_robolas_pack\ic_lidar_surface_test_robolas_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_test_robolas_pack\ic_lidar_surface_test_robolas_16dp_2x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_test_robolas_pack\ic_lidar_surface_test_robolas_16dp_3x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_test_robolas_pack\ic_lidar_surface_test_robolas_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_test_robolas_pack\ic_lidar_surface_test_robolas_32dp_1x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_test_robolas_pack\ic_lidar_surface_test_robolas_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_test_robolas_pack\ic_lidar_surface_test_robolas_32dp_2x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_test_robolas_pack\ic_lidar_surface_test_robolas_32dp_3x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_ztools_robolas_pack\ic_lidar_surface_ztools_robolas_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_ztools_robolas_pack\ic_lidar_surface_ztools_robolas_16dp_1x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_ztools_robolas_pack\ic_lidar_surface_ztools_robolas_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_ztools_robolas_pack\ic_lidar_surface_ztools_robolas_16dp_2x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_ztools_robolas_pack\ic_lidar_surface_ztools_robolas_16dp_3x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_ztools_robolas_pack\ic_lidar_surface_ztools_robolas_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_ztools_robolas_pack\ic_lidar_surface_ztools_robolas_32dp_1x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_ztools_robolas_pack\ic_lidar_surface_ztools_robolas_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_ztools_robolas_pack\ic_lidar_surface_ztools_robolas_32dp_2x.png" />
+    <Content Include="RobolasIcons\ic_lidar_surface_ztools_robolas_pack\ic_lidar_surface_ztools_robolas_32dp_3x.png" />
+    <Content Include="RobolasIcons\RoboLasLogoVer1.png" />
+    <Content Include="RobolasIcons\RoboLasLogoVer2.png" />
+    <Content Include="RobolasIcons\robolas_icons_pack\ic_lidar_surface_robolas_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\robolas_icons_pack\ic_lidar_surface_robolas_16dp_1x.png" />
+    <Content Include="RobolasIcons\robolas_icons_pack\ic_lidar_surface_robolas_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\robolas_icons_pack\ic_lidar_surface_robolas_16dp_2x.png" />
+    <Content Include="RobolasIcons\robolas_icons_pack\ic_lidar_surface_robolas_16dp_3x.png" />
+    <Content Include="RobolasIcons\robolas_icons_pack\ic_lidar_surface_robolas_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\robolas_icons_pack\ic_lidar_surface_robolas_32dp_1x.png" />
+    <Content Include="RobolasIcons\robolas_icons_pack\ic_lidar_surface_robolas_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\robolas_icons_pack\ic_lidar_surface_robolas_32dp_2x.png" />
+    <Content Include="RobolasIcons\robolas_icons_pack\ic_lidar_surface_robolas_32dp_3x.png" />
+    <Content Include="RobolasIcons\ic_panel\robolas_panel_16dp_1x.png" />
+    <Content Include="RobolasIcons\ic_panel\robolas_panel_16dp_1.5x.png" />
+    <Content Include="RobolasIcons\ic_panel\robolas_panel_16dp_2x.png" />
+    <Content Include="RobolasIcons\ic_panel\robolas_panel_16dp_2.5x.png" />
+    <Content Include="RobolasIcons\ic_panel\robolas_panel_16dp_3x.png" />
+    <Content Include="RobolasIcons\ic_panel\robolas_panel_32dp_1x.png" />
+    <Content Include="RobolasIcons\ic_panel\robolas_panel_32dp_1.5x.png" />
+    <Content Include="RobolasIcons\ic_panel\robolas_panel_32dp_2x.png" />
+    <Content Include="RobolasIcons\ic_panel\robolas_panel_32dp_2.5x.png" />
+    <Content Include="RobolasIcons\ic_panel\robolas_panel_32dp_3x.png" />
+    <Content Include="RobolasIcons\ic_panel\ic_settings_las.png" />
+    <Content Include="RoboLasLogoVer1.png" />
+    <Content Include="RoboLasLogoVer2.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

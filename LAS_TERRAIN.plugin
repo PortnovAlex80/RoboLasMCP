@@ -1,0 +1,317 @@
+{
+  "assemblies": {
+    "LAS_TERRAIN": {
+      "assembly": "LAS_TERRAIN.dll, LAS_TERRAIN.LasTerrainPluginHost"
+    }
+  },
+  "actions": {
+    "id_show_las_settings_panel": {
+      "cmd": "create_las_settings_panel",
+      "title": "Открыть настройки",
+      "icon": "rl_create_las_settings_panel",
+      "description": "Открыть настройки\nОткрывает настройки обработки облака, фильтров и построения поверхностей."
+    },
+    "id_calculation_async_section": {
+      "cmd": "calculation_async_section",
+      "title": "Построить ЦММ",
+      "description": "Построить ЦММ\nСтроит ЦММ по точкам загруженного облака на существующих поперечниках выбранной трассы.",
+      "icon": "rl_calculation_async_section"
+    },
+    "id_calculation_async_one_meter": {
+      "cmd": "calculation_async_one_meter_section",
+      "title": "Построить ЦММ (шаг 1 м)",
+      "description": "Построить ЦММ (шаг 1 м)\nСтроит ЦММ по точкам загруженного облака вдоль выбранной трассы с шагом 1 м.",
+      "icon": "rl_calculation_async_one_meter_section"
+    },
+    "id_calculation_async_custom_step": {
+      "cmd": "calculation_async_custom_step",
+      "title": "Построить ЦММ (с заданным шагом)",
+      "description": "Построить ЦММ (с заданным шагом)\nСтроит ЦММ вдоль выбранной трассы с шагом, который вы зададите в диалоге.",
+      "icon": "rl_calculation_async_custom_step"
+    },
+    "id_reduce_las_async_to_percent": {
+      "cmd": "reduce_las_async_to_percent",
+      "title": "Проредить облако",
+      "description": "Проредить облако\nОставляет заданный процент точек загруженного облака и сохраняет результат в LAS с цветами, если они есть.",
+      "icon": "rl_reduce_las_async_to_percent"
+    },
+    "id_reduce_with_ground_red_sector": {
+      "cmd": "reduce_with_ground_red_sector",
+      "title": "Проредить облако с фильтром земли",
+      "description": "Проредить облако с фильтром земли\nСначала отбирает точки фильтром земли, затем оставляет заданный процент и сохраняет результат в LAS.",
+      "icon": "rl_reduce_with_ground_red_sector"
+    },
+    "id_split_las_by_offset": {
+      "cmd": "split_las_by_offset",
+      "title": "Разделить облако на коридор и обочины",
+      "description": "Разделить облако на коридор и обочины\nРазделяет облако вдоль трассы на коридор и обочины по заданным отступам. Сохраняет два LAS с выбранным процентом точек.",
+      "icon": "rl_split_las_by_offset"
+    },
+    "id_set_split_merge_tolerance": {
+      "cmd": "set_split_merge_tolerance",
+      "title": "Настроить допуск рельефа",
+      "description": "Настроить допуск рельефа\nОткрывает настройку допуска рельефа для обработки точек.",
+      "icon": "rl_set_split_merge_tolerance"
+    },
+    "id_crs_draw_line": {
+      "cmd": "crs_draw_line",
+      "title": "Рисовать контур на поперечнике",
+      "icon": "rl_crs_draw_line",
+      "description": "Рисовать контур на поперечнике\nРисует контур на поперечнике для выбора области обработки точек облака."
+    },
+    "id_crs_delete_points": {
+      "cmd": "crs_delete_points",
+      "title": "Удалить точки по полигонам",
+      "icon": "rl_crs_delete_points",
+      "description": "Удалить точки по полигонам\nИсключает точки внутри полигонов поперечников и сохраняет оставшиеся точки в новый LAS."
+    },
+    "id_crs_clear_polygons": {
+      "cmd": "crs_clear_polygons",
+      "title": "Очистить коллекцию полигонов",
+      "icon": "rl_crs_clear_polygons",
+      "description": "Очистить коллекцию полигонов\nОчищает сохранённые полигоны поперечников. Точки облака эта команда не удаляет."
+    },
+    "id_plan_draw_polygon": {
+      "cmd": "plan_draw_polygon",
+      "title": "Рисовать полигон на плане",
+      "icon": "rl_plan_draw_polygon",
+      "description": "Рисовать полигон на плане\nРисует полигон на плане для выбора области обработки точек облака."
+    },
+    "id_plan_delete_points": {
+      "cmd": "plan_delete_points",
+      "title": "Удалить точки по полигонам плана",
+      "icon": "rl_plan_delete_points",
+      "description": "Удалить точки по полигонам плана\nИсключает точки внутри полигонов плана и сохраняет оставшиеся точки в новый LAS."
+    },
+    "id_plan_clear_polygons": {
+      "cmd": "plan_clear_polygons",
+      "title": "Удалить полигоны плана",
+      "icon": "rl_plan_clear_polygons",
+      "description": "Удалить полигоны плана\nУдаляет все сохранённые контуры полигонов плана после подтверждения. Точки облака остаются на месте."
+    },
+    "id_polygon_save_as": {
+      "cmd": "polygon_save_as",
+      "title": "Сохранить полигоны как…",
+      "icon": "rl_polygon_save_as",
+      "description": "Сохранить полигоны как…\nСохраняет полигоны плана или поперечников в выбранную папку. Каждый полигон — отдельный JSON-файл с именем проекта и номером."
+    },
+    "id_polygon_load": {
+      "cmd": "polygon_load",
+      "title": "Загрузить полигоны…",
+      "icon": "rl_polygon_load",
+      "description": "Загрузить полигоны…\nДобавляет выбранные JSON-файлы в текущий проект. Контуры поперечников применяются к текущему сечению; координаты плана сохраняются."
+    },
+    "id_plan_polygon_grid_surface": {
+      "cmd": "plan_polygon_grid_surface",
+      "title": "Построить ЦММ по полигонам (сетка)",
+      "icon": "rl_plan_polygon_grid_surface",
+      "description": "Построить ЦММ по полигонам (сетка)\nСтроит ЦММ по точкам облака внутри полигонов плана методом сетки. Параметры задаются в настройках плагина."
+    },
+    "id_plan_polygon_polynomial_surface": {
+      "cmd": "plan_polygon_polynomial_surface",
+      "title": "Построить ЦММ по полигонам (полином)",
+      "icon": "rl_plan_polygon_polynomial_surface",
+      "description": "Построить ЦММ по полигонам (полином)\nСтроит сглаженную ЦММ по точкам облака внутри полигонов плана методом полиномиальной подгонки."
+    },
+    "id_las_start_mcp": {
+      "cmd": "las_start_mcp",
+      "title": "Подключить MCP",
+      "icon": "rl_las_start_mcp",
+      "description": "Подключить MCP\nЗапускает штатный MCP Robur и инструменты RoboLas для агента. При открытии проекта подключение запускается автоматически."
+    }
+  },
+  "menubars": {
+    "rbproj": {
+      "items": [
+        {
+          "id": "las_menu",
+          "title": "RoboLaserSection"
+        }
+      ]
+    },
+    "rbproj.las_menu": {
+      "items": [
+        "id_calculation_async_section",
+        "id_calculation_async_one_meter",
+        "id_calculation_async_custom_step",
+        "-",
+        "id_reduce_las_async_to_percent",
+        "id_reduce_with_ground_red_sector",
+        "-",
+        "id_split_las_by_offset",
+        "-",
+        "id_polygon_save_as",
+        "id_polygon_load",
+        "-",
+        "id_las_start_mcp"
+      ]
+    }
+  },
+  "rbcrs": {
+    "items": [
+      {
+        "id": "las_crs_menu",
+        "title": "RoboLaser (CRS)",
+        "items": [
+          "id_crs_draw_line",
+          "id_crs_delete_points",
+          "id_crs_clear_polygons"
+        ]
+      }
+    ]
+  },
+  "toolbars": {
+    "rbproj.cross": [
+      {
+        "id": "las_crs_toolbar",
+        "title": "RoboLaser (CRS)",
+        "visible": true,
+        "dock": 1,
+        "x": 0,
+        "y": 0,
+        "items": [
+          {
+            "button": "id_crs_draw_line"
+          },
+          {
+            "button": "id_crs_delete_points"
+          },
+          {
+            "button": "id_crs_clear_polygons"
+          }
+        ]
+      }
+    ],
+    "rbproj.plan": [
+      {
+        "id": "las_plan_toolbar",
+        "title": "RoboLaser (План)",
+        "visible": true,
+        "dock": 1,
+        "x": 0,
+        "y": 0,
+        "items": [
+          {
+            "button": "id_show_las_settings_panel"
+          },
+          {
+            "button": "id_plan_draw_polygon"
+          },
+          {
+            "button": "id_plan_delete_points"
+          },
+          {
+            "button": "id_plan_clear_polygons"
+          },
+          {
+            "button": "id_polygon_save_as"
+          },
+          {
+            "button": "id_polygon_load"
+          },
+          {
+            "button": "id_plan_polygon_grid_surface"
+          },
+          {
+            "button": "id_plan_polygon_polynomial_surface"
+          }
+        ]
+      }
+    ]
+  },
+  "panels": {
+    "las_settings": {
+      "title": "Настройки RoboLaserSection",
+      "description": "Параметры обработки облака и построения поверхностей",
+      "cmd": "create_las_settings_panel",
+      "icon": "rl_create_las_settings_panel",
+      "refresh": "refresh_las_settings_panel",
+      "docking": 2
+    }
+  },
+  "ribbon": {
+    "rbproj": {
+      "items": [
+        {
+          "group": "las_tab",
+          "title": "RoboLaserSection"
+        }
+      ]
+    },
+    "rbproj.las_tab": {
+      "items": [
+        {
+          "group": "calc",
+          "title": "Построение ЦММ"
+        },
+        {
+          "group": "reduce",
+          "title": "Прореживание облака"
+        },
+        {
+          "group": "split",
+          "title": "Разделение облака"
+        },
+        {
+          "group": "dev",
+          "title": "Инструменты"
+        }
+      ]
+    },
+    "rbproj.las_tab.calc": {
+      "items": [
+        {
+          "title": "ЦММ",
+          "icon": "rl_calculation_async_section",
+          "size": "large",
+          "items": [
+            "id_calculation_async_section",
+            "id_calculation_async_one_meter",
+            "id_calculation_async_custom_step"
+          ]
+        }
+      ]
+    },
+    "rbproj.las_tab.reduce": {
+      "items": [
+        {
+          "title": "Прореживание",
+          "icon": "rl_reduce_las_async_to_percent",
+          "size": "large",
+          "items": [
+            "id_reduce_las_async_to_percent",
+            "id_reduce_with_ground_red_sector"
+          ]
+        }
+      ]
+    },
+    "rbproj.las_tab.split": {
+      "items": [
+        {
+          "title": "Разделить облако",
+          "icon": "rl_split_las_by_offset",
+          "size": "large",
+          "items": [
+            "id_split_las_by_offset"
+          ]
+        }
+      ]
+    },
+    "rbproj.las_tab.dev": {
+      "items": [
+        {
+          "title": "Инструменты",
+          "icon": "rl_create_las_settings_panel",
+          "size": "large",
+          "items": [
+            "id_show_las_settings_panel",
+            "id_crs_draw_line",
+            "id_set_split_merge_tolerance",
+            "id_plan_polygon_grid_surface",
+            "id_plan_polygon_polynomial_surface"
+          ]
+        }
+      ]
+    }
+  }
+}

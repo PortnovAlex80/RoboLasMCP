@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+<title>reduce_with_ground_red_sector</title>
+<circle cx="4" cy="5" r="1.5" fill="#1684c7"/>
+<circle cx="11" cy="4" r="1.5" fill="#1684c7"/>
+<circle cx="18" cy="6" r="1.5" fill="#1684c7"/>
+<circle cx="6" cy="11" r="1.5" fill="#1684c7"/>
+<circle cx="14" cy="10" r="1.5" fill="#1684c7"/>
+<circle cx="23" cy="4" r="1.5" fill="#1684c7"/>
+<polyline points="12,14 12,22" fill="none" stroke="#334155" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="15.0,18.0 12,22 9.0,18.0" fill="none" stroke="#334155" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="3,28 9,25 18,26 29,22" fill="none" stroke="#22845c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="5" cy="27" r="2" fill="#22845c"/>
+<circle cx="14" cy="25" r="2" fill="#22845c"/>
+<circle cx="25" cy="23" r="2" fill="#22845c"/>
+</svg>

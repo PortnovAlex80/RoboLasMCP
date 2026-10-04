@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+<title>crs_draw_line</title>
+<polygon points="3,21 9,11 16,17 24,8 26,24" fill="#e5f3fb" stroke="#1684c7" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="18,24 25,17 29,21 22,28 17,29" fill="#ffe2a6" stroke="#c17a12" stroke-width="1.5" stroke-linejoin="round"/>
+<polyline points="25,17 29,21" fill="none" stroke="#334155" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="3" cy="21" r="1.8" fill="#1684c7"/>
+<circle cx="9" cy="11" r="1.8" fill="#1684c7"/>
+<circle cx="24" cy="8" r="1.8" fill="#1684c7"/>
+</svg>

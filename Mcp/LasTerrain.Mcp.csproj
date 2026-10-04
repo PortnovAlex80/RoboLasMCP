@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <NativeToolBridgePath Condition=" '$(NativeToolBridgePath)' == '' ">$(MSBuildThisFileDirectory)refs\Topomatic.ToolBridge.dll</NativeToolBridgePath>
+    <NativeJsonPath Condition="Exists('$([System.IO.Path]::GetDirectoryName($(NativeToolBridgePath)))\Newtonsoft.Json.dll')">$([System.IO.Path]::GetDirectoryName($(NativeToolBridgePath)))\Newtonsoft.Json.dll</NativeJsonPath>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7E6C1B2A-3D4E-4F5A-9B8C-1D2E3F4A5B6C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LAS_TERRAIN.Mcp</RootNamespace>
+    <AssemblyName>LAS_TERRAIN.MCP</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <!-- Путь к установке Topomatic Robur (как в LAS_TERRAIN.csproj) -->
+  <PropertyGroup>
+    <TopomaticPath Condition=" '$(TopomaticPath)' == '' ">$(TOPOMATIC_PATH)</TopomaticPath>
+    <TopomaticPath Condition=" '$(TopomaticPath)' == '' and Exists('C:\Program Files\Topomatic Robur Rail 17.0') ">C:\Program Files\Topomatic Robur Rail 17.0</TopomaticPath>
+    <TopomaticPath Condition=" '$(TopomaticPath)' == '' and Exists('C:\Program Files\Topomatic Robur Road 17.0') ">C:\Program Files\Topomatic Robur Road 17.0</TopomaticPath>
+    <TopomaticPath Condition=" '$(TopomaticPath)' == '' and Exists('C:\Program Files\Topomatic Robur Rail 16.0') ">C:\Program Files\Topomatic Robur Rail 16.0</TopomaticPath>
+    <TopomaticPath Condition=" '$(TopomaticPath)' == '' and Exists('C:\Program Files\Topomatic Robur Road 16.0') ">C:\Program Files\Topomatic Robur Road 16.0</TopomaticPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <!-- Официальный мост robur-mcp 0.1 (из пакета robur_mcp-0_1.tpm; см. refs\README.md) -->
+    <Reference Include="Topomatic.ToolBridge, Version=0.1.0.0, Culture=neutral, PublicKeyToken=0af0f61cef2ab3a8">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(NativeToolBridgePath)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath Condition=" '$(NativeJsonPath)' != '' ">$(NativeJsonPath)</HintPath>
+      <HintPath Condition=" '$(NativeJsonPath)' == '' ">$(TopomaticPath)\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.ApplicationPlatform">
+      <HintPath>$(TopomaticPath)\Topomatic.ApplicationPlatform.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.Cad.Foundation">
+      <HintPath>$(TopomaticPath)\Topomatic.Cad.Foundation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.Cad.View">
+      <HintPath>$(TopomaticPath)\Topomatic.Cad.View.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Topomatic.FoundationClasses">
+      <HintPath>$(TopomaticPath)\Topomatic.FoundationClasses.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LasMcpPluginHost.cs" />
+    <Compile Include="LasMcpModule.cs" />
+    <Compile Include="ToolResult.cs" />
+    <Compile Include="SettingsSchema.cs" />
+    <Compile Include="OperationLedger.cs" />
+    <Compile Include="McpToolContract.cs" />
+    <Compile Include="SectionImageRenderer.cs" />
+    <Compile Include="Tools\LasHarnessTools.cs" />
+    <Compile Include="Tools\LasContextTools.cs" />
+    <Compile Include="Tools\LasSettingsTools.cs" />
+    <Compile Include="Tools\LasTerrainTools.cs" />
+    <Compile Include="Tools\LasExportTools.cs" />
+    <Compile Include="Tools\LasPolygonTools.cs" />
+    <Compile Include="Tools\LasSectionVisualTools.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LAS_TERRAIN.csproj">
+      <Project>{B3B2AFC5-2A75-40C3-8A46-C07A290C2E43}</Project>
+      <Name>LAS_TERRAIN</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LAS_TERRAIN.MCP.plugin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="refs\README.md" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+<title>split_las_by_offset</title>
+<polygon points="12,3 20,3 20,29 12,29" fill="#d9f1e5" stroke="#22845c" stroke-width="1.5" stroke-linejoin="round"/>
+<polyline points="16,5 16,27" fill="none" stroke="#334155" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="10,16 3,16" fill="none" stroke="#1684c7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="7.0,19.0 3,16 7.0,13.0" fill="none" stroke="#1684c7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="22,16 29,16" fill="none" stroke="#c17a12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="25.0,13.0 29,16 25.0,19.0" fill="none" stroke="#c17a12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

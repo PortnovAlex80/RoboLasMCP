@@ -1,0 +1,4 @@
+interface:
+  display_name: "RoboLas Batch LAS IO"
+  short_description: "Build batch LAS processing features"
+  default_prompt: "Use $robolas-batch-las-io to implement this large-scale LAS processing feature with correct streaming and progress."

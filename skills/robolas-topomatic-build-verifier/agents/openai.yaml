@@ -1,0 +1,4 @@
+interface:
+  display_name: "RoboLas Build Verifier"
+  short_description: "Verify RoboLas plugin wiring and build risks"
+  default_prompt: "Use $robolas-topomatic-build-verifier to verify this RoboLas change for command wiring, manifest sync, and build risks."

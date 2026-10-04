@@ -1,0 +1,4 @@
+interface:
+  display_name: "RoboLas Section Pipeline"
+  short_description: "Implement section-based terrain features"
+  default_prompt: "Use $robolas-section-pipeline to implement this section-based RoboLas feature on the shared corridor workflow."

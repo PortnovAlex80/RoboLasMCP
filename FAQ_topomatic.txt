@@ -1,0 +1,335 @@
+﻿Got it. Here’s an ultra‑compact Topomatic SDK cheat sheet distilled from your code (English only, minimal tokens).
+
+# Plugin & Commands
+
+* Host:
+
+```csharp
+class LasTerrainPluginHost : PluginHostInitializator {
+  protected override Type[] GetTypes() => new[] { typeof(Module) };
+  public override void Initialize(PluginFactory f){ base.Initialize(f); RuntimeConfig.SplitMergeTolerance = Settings.Instance.SplitMergeTolerance; }
+}
+```
+
+* Module + cmd:
+
+```csharp
+partial class Module : PluginInitializator {
+  [cmd("calculation_async_section")] public void Exec()=> SectionCommandRunner.Run("calculation_async_section", CadView);
+  public void Run(string cmd)=> SectionCommandRunner.Run(cmd, CadView);
+}
+```
+
+* UseCase registry:
+
+```csharp
+[SectionCmd("cmd_name")] class X : ISectionUseCase { public string Name=>"cmd_name"; public void Run(SectionEnv env){/*...*/} }
+```
+
+# Resolve & Run
+
+```csharp
+SectionCommandRunner.Run(string cmd, CadView v){
+  var uc = SectionRegistry.Resolve(cmd);
+  if(uc==null){ MessageDlg.Show($"«{cmd}»", OK, Warning); return; }
+  uc.Run(new SectionEnv(v));
+}
+```
+
+# Dialogs & Cursors
+
+```csharp
+// message
+MessageDlg.Show("text", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+// get double from cursor
+double val=def;
+var r=CadCursors.GetDouble(cadView, ref val, "prompt", null);
+if(r!=GetPointResult.Accept) val=def;
+
+// save file
+using(var dlg=new SaveFileDialog(){Title="Save LAS",Filter="LAS (*.las)|*.las",DefaultExt="las"}) 
+  if(dlg.ShowDialog()==DialogResult.OK) return dlg.FileName;
+```
+
+# Selection (pick object)
+
+```csharp
+var w = cadView.SelectionSet.PickOneObjectAtScreen(o => o is IWrapped && ((IWrapped)o).WrappedObject is Alignment, "pick") as IWrapped;
+var alg = (w?.WrappedObject as Alignment);
+```
+
+# Progress UI
+
+```csharp
+WaitProgress.BeginProgress("title...", () => {
+  for(int i=0;i<n;i++){ if(WaitProgress.CancellationPending) break; /* work */ WaitProgress.ProgressChange((float)(i+1)/n); }
+}, /*allowCancel*/ true);
+```
+
+# Validation helpers
+
+```csharp
+if(cadView==null){ MessageDlg.Show("No view", OK, Warning); return; }
+if(buffers==null||buffers.Count==0){ MessageDlg.Show("No LiDAR", OK, Warning); return; }
+```
+
+# Runtime config
+
+```csharp
+RuntimeConfig.SplitMergeTolerance = tol;
+using(RuntimeConfig.FreezeSplitMergeTolerance(tempTol)){ /* do work with frozen tol */ }
+```
+
+# Settings (persist)
+
+```csharp
+var s = Settings.Instance;
+s.SplitMergeTolerance = 0.07; // saved via IStgSerializable
+var status = s.CanLaunchProd(out double? daysLeft);
+```
+
+# Geometry primitives
+
+```csharp
+var p2 = new Vector2D{X=...,Y=...};
+var p3 = new Vector3D(p2, z);
+var bb2 = new BoundingBox2D(pA, pB);
+bb2.AddPoint(p); var contains = bb2.Contains(p); // ContainmentType
+var line = Line2D.CreateLine2D(p0, dir.X, dir.Y);
+var n = line.Normal(pos); var x = Line2D.SectLines(line, n);
+```
+
+# Lidar buffers (collect/find/write)
+
+```csharp
+// collect from Alignment surfaces
+var buffers = LidarBufferService.CollectBuffers(alg);
+
+// spatial query
+var pts = new List<Vector4D>();
+buffer.FindPoints(bbox, pt => pts.Add(pt));
+
+// write back (overwrite buffers)
+LidarBufferWriter.BuildAndSaveBuffer(rawPts, buffer, classification:2, scaleValue:0.0001);
+```
+
+# LAS file writer (raw points → .las)
+
+```csharp
+using(var las = new LasStreamWriter(path)){
+  las.OnProgress = (cur,total)=>WaitProgress.ProgressChange((float)cur/total);
+  las.WritePoints(rawPoints /* List<Vector4D> (X,Y,Z,W=intensity) */);
+} // auto header + scaling 1e-4
+```
+
+# Surface edit (get/add/edit points)
+
+```csharp
+// Add points (batch-safe)
+surface.BeginUpdate();
+try{
+  var ed = new PointEditor(surface);
+  ed.Add(new SurfacePoint(new Vector3D(x,y,z))); // add
+  // ed.Edit(id, new SurfacePoint(...)); // typical edit signature if needed
+} finally { surface.EndUpdate(); }
+```
+
+# Selection set & filters (sections ↔ corridor)
+
+```csharp
+// generate sections @ step
+double L = alg.Plan.CompoundLine.Length;
+alg.Corridor.Sections.Clear(); for(double s=0;s<=L;s+=step) alg.Corridor.Sections.Add(s);
+var sections = alg.Corridor.Sections.ToList();
+```
+
+# Section sampling pipeline (2D→3D)
+
+```csharp
+// collect cross‑section 2D points along alignment
+LasSectionPoints sec = LasSectionPointsCollectorService.Collect(
+  alg, buffers, section, options, out List<Vector4D> raw, pointFilter /* Vector2D secPt, List<Vector2D> nodeContours */);
+
+// filter 2D→ segments → vertices
+var filtered2d = FilterAggregator.Apply(sec.SectionPoints); // OrderByX → MinWeighted... → SplitAndMerge
+
+// lift to 3D
+var result3d = new List<Vector3D>();
+foreach(var pt in filtered2d){
+  var pos2d = sec.LeftMostPoint + sec.Direction * (pt.X + alg.DtmSizeLeft);
+  result3d.Add(new Vector3D(pos2d, pt.Y));
+}
+```
+
+# Filters (ready to use)
+
+```csharp
+var ordered = OrderByX.Apply(points);
+var smoothed = MinWeightedGroundLevelMedianFilter.Apply(points);
+var simplified = SplitAndMergeAlgorithm.Apply(points); // tol = RuntimeConfig.SplitMergeTolerance
+```
+
+# Parallel exec
+
+```csharp
+Parallel.ForEach(Enumerable.Range(0, count), i => {
+  if(WaitProgress.CancellationPending) return;
+  var sec = LasSectionPointsCollectorService.Collect(...);
+  var filtered = LasFilterService.ApplyFilter(alg, sec);
+  lock(sync){ acc.AddRange(filtered); WaitProgress.ProgressChange(p+=step); }
+});
+```
+
+# De‑dupe
+
+```csharp
+// unique by XYZ
+var seen=new HashSet<string>();
+var out3 = new List<Vector3D>();
+foreach(var p in inp) if(seen.Add($"{p.X:R}|{p.Y:R}|{p.Z:R}")) out3.Add(p);
+```
+
+# Random sampling / percent reduce
+
+```csharp
+// percent ∈ (0..100]
+var reduced = SamplingHelper.ReduceByPercentWithProgress(raw, percent, p=>WaitProgress.ProgressChange(p));
+```
+
+# Command examples (from your code)
+
+* `getSurfacePoint` (create & add):
+
+```csharp
+var sp = new SurfacePoint(new Vector3D(x,y,z));
+new PointEditor(surface).Add(sp);
+```
+
+* `edit points` (pattern):
+
+```csharp
+surface.BeginUpdate();
+try{
+  var ed = new PointEditor(surface);
+  // ed.Edit(pointId, new SurfacePoint(new Vector3D(nx,ny,nz)));
+} finally { surface.EndUpdate(); }
+```
+
+* `add` (batch):
+
+```csharp
+surface.BeginUpdate();
+try{ var ed=new PointEditor(surface); foreach(var p in pts) ed.Add(new SurfacePoint(p)); }
+finally{ surface.EndUpdate(); }
+```
+
+* `progress bar`:
+
+```csharp
+WaitProgress.BeginProgress("...", ()=>{ for(int i=0;i<n;i++) WaitProgress.ProgressChange((i+1f)/n); }, true);
+```
+
+* `selection set object`:
+
+```csharp
+var alg = UserDialogs.SelectAlignment(cadView); // via SelectionSet.PickOneObjectAtScreen
+```
+
+# Quick utilities
+
+```csharp
+// Save mode & combined outputs (buffers + LAS)
+SaveLidarPointsService.AskSaveModeAndPath(cadView);
+SaveLidarPointsService.Save(rawPoints, buffers, surface);
+
+// Performance log
+PerformanceLogger.LogExecution(t0,t1,t1-t0, async:true, genSections:false, step:null);
+```
+
+Got it — here’s the **ultra-compact Topomatic SDK Quick Guide** for working with **StructureLine** and **Surface points** in English only, minimal tokens:
+
+---
+
+## 1. Pick StructureLine
+
+```csharp
+StructureLine line = UserDialogs.SelectStructureLine(cadView, "Pick line", true);
+if (line == null) return;
+```
+
+* `IsClosed` → check closed contour
+* `Count` → vertex count
+
+---
+
+## 2. Get vertices (XYZ)
+
+```csharp
+List<Vector3D> verts = new List<Vector3D>(line.Count);
+line.ToPolyline(verts); // fill with XYZ
+Vector3D p = line.GetPosition(i); // single point
+```
+
+---
+
+## 3. Map vertices → Surface indices
+
+```csharp
+List<int> ids = SurfaceIndexLookup.MapVerticesToSurfaceIndices(surface, verts, 1e-3);
+```
+
+* `surface.FindPoint(Vector2D, eps)` → direct match
+* `surface.FindPoints(BoundingBox2D, list)` → bbox search
+
+---
+
+## 4. Edit Surface points
+
+```csharp
+var ed = new PointEditor(surface);
+ed.SetVertex(idx, new Vector3D(x, y, z));          // single point
+ed.Transform(indices, Matrix.CreateTranslation(dx, dy, dz)); // bulk move
+```
+
+Wrap changes:
+
+```csharp
+surface.BeginUpdate();
+try { /* edits */ }
+finally { surface.EndUpdate(); }
+```
+
+---
+
+## 5. Add point to Surface & StructureLine
+
+```csharp
+int pid = ed.Add(new SurfacePoint(new Vector3D(x, y, z)));
+line.Add(pid); // attach to StructureLine
+```
+
+---
+
+## 6. Progress feedback
+
+```csharp
+WaitProgress.BeginProgress("...", () =>
+{
+    for (int i = 0; i < total; i++)
+        WaitProgress.ProgressChange((i + 1f) / total);
+}, true);
+```
+
+---
+
+## 7. Selection examples
+
+```csharp
+Alignment alg = UserDialogs.SelectAlignment(cadView);
+SurfaceLayer sl = UserDialogs.GetSurfaceLayerOrShow(cadView);
+```
+
+---
+
+Do you want me to also make this as a **single-page “command table”** so you can literally print it and keep next to your IDE? That would make it even faster to reference.
